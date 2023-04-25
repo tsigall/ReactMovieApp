@@ -4,8 +4,7 @@ body{
 }
 
 .movie > .row{
-  overflow-x: auto;
-  flex-wrap: nowrap;
+.movie-app > .row {
 }
 
 .image-container {
