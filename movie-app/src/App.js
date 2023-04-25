@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 import SearchBox from './components/SearchBox';
 import AddFavorites from './components/AddFavorites';
+import RemoveFavorites from './components/RemoveFavorites';
 
 const App= ()=> {
   const [movies, setMovies] = useState([]);
@@ -21,40 +22,66 @@ const getMovieRequest = async(searchValue) =>{
     setMovies(responseJson.Search);
   }
 
-
-
 };
 
 useEffect(()=>{
   getMovieRequest(searchValue);
 }, [searchValue])
 
+useEffect(() => {
+  const movieFavorites = JSON.parse(
+    localStorage.getItem('react-movie-app-favorites')
+  );
+  
+  setFavorites(movieFavorites);
+}, []);
+
+
+
+const saveToLocalStorage = (items) => {
+  localStorage.setItem('react-movie-app-favorites', JSON.stringify(items));
+};
+
+
+
 const addFavoriteMovie = (movie) => {
   const newFavoriteList = [...favorites, movie];
   setFavorites(newFavoriteList);
-  //saveToLocalStorage(newFavouriteList);
+  saveToLocalStorage(newFavoriteList);
 };
+
+const removeFavoriteMovie = (movie) => {
+  const newFavoriteList = favorites.filter(
+    (favorite) => favorite.imdbID !== movie.imdbID
+  );
+
+  setFavorites(newFavoriteList);
+  saveToLocalStorage(newFavoriteList);
+};
+
 
 
 
   return(
     <div className='container-fluid movie-app'> 
       <div className = 'row d-flex align-items-center mt-10 mb-10'>
-        <MovieListHeading heading = 'Movies' />
+        <MovieListHeading heading = 'Search & click your favorite movies' />
         <SearchBox searchValue = {searchValue} setSearchValue = {setSearchValue} />
       </div>
       <div className='d-flex justify-content-start m-10'>
-          <MovieList movies = {movies} handleFavoritesClick = {addFavoriteMovie} favoriteComponent = {AddFavorites}/>
+          <MovieList movies = {movies} 
+          handleFavoritesClick = {addFavoriteMovie} 
+          favoriteComponent = {AddFavorites}/>
 
       </div>
       <div className = 'row d-flex align-items-center mt-10 mb-10'>
-        <MovieListHeading heading = 'Favorites' />
+        <MovieListHeading heading = 'Your Favorite Movies: ' />
       </div>
       <div className='d-flex justify-content-start m-10'>
           <MovieList
           movies = {favorites} 
-          handleFavoritesClick = {addFavoriteMovie} 
-          favoriteComponent = {AddFavorites}/>
+          handleFavoritesClick = {removeFavoriteMovie} 
+          favoriteComponent = {RemoveFavorites}/>
 
       </div>
 
