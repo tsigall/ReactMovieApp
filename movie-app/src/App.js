@@ -8,6 +8,7 @@ import AddFavorites from './components/AddFavorites';
 
 const App= ()=> {
   const [movies, setMovies] = useState([]);
+  const [favorites, setFavorites] =  useState([]); 
   const [searchValue, setSearchValue] = useState('');
 
 const getMovieRequest = async(searchValue) =>{
@@ -28,6 +29,12 @@ useEffect(()=>{
   getMovieRequest(searchValue);
 }, [searchValue])
 
+const addFavoriteMovie = (movie) => {
+  const newFavoriteList = [...favorites, movie];
+  setFavorites(newFavoriteList);
+  //saveToLocalStorage(newFavouriteList);
+};
+
 
 
   return(
@@ -37,9 +44,27 @@ useEffect(()=>{
         <SearchBox searchValue = {searchValue} setSearchValue = {setSearchValue} />
       </div>
       <div className='d-flex justify-content-start m-10'>
-          <MovieList movies = {movies} favoriteComponent = {AddFavorites}/>
+          <MovieList movies = {movies} handleFavoritesClick = {addFavoriteMovie} favoriteComponent = {AddFavorites}/>
+
       </div>
+      <div className = 'row d-flex align-items-center mt-10 mb-10'>
+        <MovieListHeading heading = 'Favorites' />
+      </div>
+      <div className='d-flex justify-content-start m-10'>
+          <MovieList
+          movies = {favorites} 
+          handleFavoritesClick = {addFavoriteMovie} 
+          favoriteComponent = {AddFavorites}/>
+
+      </div>
+
+
+
     </div>
+
+
+
+
   ); 
 };
 
