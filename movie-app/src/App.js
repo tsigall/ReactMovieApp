@@ -1,38 +1,97 @@
 import React, {useEffect, useState} from 'react';
 import MovieList from './components/MovieList';
+import MovieListHeading from './components/MovieListHeading';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
+import SearchBox from './components/SearchBox';
+import AddFavorites from './components/AddFavorites';
+import RemoveFavorites from './components/RemoveFavorites';
 
 const App= ()=> {
   const [movies, setMovies] = useState([]);
+  const [favorites, setFavorites] =  useState([]); 
   const [searchValue, setSearchValue] = useState('');
-  const [favorites, setFavorites] = useState('');
 
-const getMovieRequest = async() =>{
-  const url = "http://www.omdbapi.com/?s=avengers&apikey=29fda01a"
-
+const getMovieRequest = async(searchValue) =>{
+  const url =  `http://www.omdbapi.com/?s=${searchValue}&apikey=29fda01a`;
+  
   const response = await fetch(url);
   const responseJson = await response.json();
 
-  console.log(responseJson.Search);
-  setMovies(responseJson.Search);
+  if(responseJson.Search){
+    setMovies(responseJson.Search);
+  }
+
 };
+
 useEffect(()=>{
-  getMovieRequest();
-}, [])
+  getMovieRequest(searchValue);
+}, [searchValue])
+
+useEffect(() => {
+  const movieFavorites = JSON.parse(
+    localStorage.getItem('react-movie-app-favorites')
+  );
+  
+  setFavorites(movieFavorites);
+}, []);
+
+
+
+const saveToLocalStorage = (items) => {
+  localStorage.setItem('react-movie-app-favorites', JSON.stringify(items));
+};
+
+
+
+const addFavoriteMovie = (movie) => {
+  const newFavoriteList = [...favorites, movie];
+  setFavorites(newFavoriteList);
+  saveToLocalStorage(newFavoriteList);
+};
+
+const removeFavoriteMovie = (movie) => {
+  const newFavoriteList = favorites.filter(
+    (favorite) => favorite.imdbID !== movie.imdbID
+  );
+
+  setFavorites(newFavoriteList);
+  saveToLocalStorage(newFavoriteList);
+};
+
 
 
 
   return(
     <div className='container-fluid movie-app'> 
-      <div className = 'row'>
+      <div className = 'row d-flex align-items-center mt-10 mb-10'>
+        <MovieListHeading heading = 'Search & click your favorite movies' />
+        <SearchBox searchValue = {searchValue} setSearchValue = {setSearchValue} />
+      </div>
+      <div className='d-flex justify-content-start m-10'>
+          <MovieList movies = {movies} 
+          handleFavoritesClick = {addFavoriteMovie} 
+          favoriteComponent = {AddFavorites}/>
+
+      </div>
+      <div className = 'row d-flex align-items-center mt-10 mb-10'>
+        <MovieListHeading heading = 'Your Favorite Movies: ' />
+      </div>
+      <div className='d-flex justify-content-start m-10'>
+          <MovieList
+          movies = {favorites} 
+          handleFavoritesClick = {removeFavoriteMovie} 
+          favoriteComponent = {RemoveFavorites}/>
 
       </div>
 
-      <div className='d-flex justify-content-start m-3'>
-        <MovieList movies = {movies}/>
-      </div>
+
+
     </div>
+
+
+
+
   ); 
 };
 
