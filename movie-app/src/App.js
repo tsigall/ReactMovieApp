@@ -22,6 +22,8 @@ const getMovieRequest = async(searchValue) =>{
     setMovies(responseJson.Search);
   }
 
+
+
 };
 
 useEffect(()=>{
@@ -32,17 +34,15 @@ useEffect(() => {
   const movieFavorites = JSON.parse(
     localStorage.getItem('react-movie-app-favorites')
   );
-  
-  setFavorites(movieFavorites);
+
+  if (movieFavorites) {
+    setFavorites(movieFavorites);
+  }
 }, []);
-
-
 
 const saveToLocalStorage = (items) => {
   localStorage.setItem('react-movie-app-favorites', JSON.stringify(items));
 };
-
-
 
 const addFavoriteMovie = (movie) => {
   const newFavoriteList = [...favorites, movie];
@@ -59,13 +59,10 @@ const removeFavoriteMovie = (movie) => {
   saveToLocalStorage(newFavoriteList);
 };
 
-
-
-
   return(
     <div className='container-fluid movie-app'> 
       <div className = 'row d-flex align-items-center mt-10 mb-10'>
-        <MovieListHeading heading = 'Search & click your favorite movies' />
+        <MovieListHeading heading = 'Movies' />
         <SearchBox searchValue = {searchValue} setSearchValue = {setSearchValue} />
       </div>
       <div className='d-flex justify-content-start m-10'>
@@ -75,7 +72,7 @@ const removeFavoriteMovie = (movie) => {
 
       </div>
       <div className = 'row d-flex align-items-center mt-10 mb-10'>
-        <MovieListHeading heading = 'Your Favorite Movies: ' />
+        <MovieListHeading heading = 'Favorites' />
       </div>
       <div className='d-flex justify-content-start m-10'>
           <MovieList
