@@ -15,6 +15,15 @@ const App= ()=> {
 const getMovieRequest = async(searchValue) =>{
   const url =  `http://www.omdbapi.com/?s=${searchValue}&apikey=29fda01a`;
   
+  // const url = 'https://api.themoviedb.org/3/search/movie?api_key=93fca930502ca26f4f11c7e8bee747a4&query={searchValue}'
+
+  // const apiKey = '93fca930502ca26f4f11c7e8bee747a4';
+  // const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${(searchValue)}`
+
+  // const url =  'https://api.themoviedb.org/3/search/movie?api_key=93fca930502ca26f4f11c7e8bee747a4&query=Action'
+
+
+
   const response = await fetch(url);
   const responseJson = await response.json();
 
