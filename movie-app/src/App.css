@@ -18,17 +18,33 @@ body {
 	transform: scale(1.1);
 }
 
-.image-container:hover .overlay {
+.image-container:hover .overlay1 {
 	opacity: 1;
 }
 
-.overlay {
+.image-container:hover .overlay2 {
+	opacity: 1;
+}
+
+.overlay1 {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.8);
 	width: 100%;
 	transition: 0.5s ease;
 	opacity: 0;
 	bottom: 0;
+	font-size: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
+.overlay2 {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	transition: 0.5s ease;
+	opacity: 0;
+	bottom: 20;
 	font-size: 20px;
 	padding: 20px;
 	text-align: center;

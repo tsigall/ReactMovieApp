@@ -67,11 +67,12 @@ const removeFavoriteMovie = (movie) => {
   saveToLocalStorage(newFavoriteList);
 };
 
-// const addNewRating = (movie) => {
-//   const newRatingList = ratings.filter(
-//     (rate)
-//   )
-// }
+const addMovieRatings = (movie) => {
+  const newRatingList = [...ratings, movie];
+  setRatings(newRatingList);
+  saveToLocalStorage(newRatingList);
+
+};
 
   return(
     <div className='container-fluid movie-app'> 
@@ -82,7 +83,11 @@ const removeFavoriteMovie = (movie) => {
       <div className='d-flex justify-content-start m-10'>
           <MovieList movies = {movies} 
           handleFavoritesClick = {addFavoriteMovie} 
-          favoriteComponent = {AddFavorites}/>
+          favoriteComponent = {AddFavorites}
+
+          handleRatingsClick = {addMovieRatings}
+          ratingsComponent = {AddRatings}
+          />
 
       </div>
       <div className = 'row d-flex align-items-center mt-10 mb-10'>
