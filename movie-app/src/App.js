@@ -6,11 +6,13 @@ import './App.css';
 import SearchBox from './components/SearchBox';
 import AddFavorites from './components/AddFavorites';
 import RemoveFavorites from './components/RemoveFavorites';
+import AddRatings from './components/AddRating';
 
 const App= ()=> {
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] =  useState([]); 
   const [searchValue, setSearchValue] = useState('');
+  const [ratings, setRatings] = useState([]);
 
 const getMovieRequest = async(searchValue) =>{
   const url =  `http://www.omdbapi.com/?s=${searchValue}&apikey=29fda01a`;
@@ -30,9 +32,6 @@ const getMovieRequest = async(searchValue) =>{
   if(responseJson.Search){
     setMovies(responseJson.Search);
   }
-
-
-
 };
 
 useEffect(()=>{
@@ -67,6 +66,12 @@ const removeFavoriteMovie = (movie) => {
   setFavorites(newFavoriteList);
   saveToLocalStorage(newFavoriteList);
 };
+
+// const addNewRating = (movie) => {
+//   const newRatingList = ratings.filter(
+//     (rate)
+//   )
+// }
 
   return(
     <div className='container-fluid movie-app'> 
