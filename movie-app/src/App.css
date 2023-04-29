@@ -18,15 +18,19 @@ body {
 	transform: scale(1.1);
 }
 
-.image-container:hover .overlay {
+.image-container:hover .overlay-bottom {
 	opacity: 1;
 }
 
-.overlay {
+.image-container:hover .overlay-top {
+	opacity: 1;
+}
+
+.overlay-bottom {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.8);
 	width: 100%;
-	height: 100%;
+	height: 20%;
 	transition: 0.5s ease;
 	opacity: 0;
 	bottom: 0;
@@ -34,3 +38,63 @@ body {
 	padding: 20px;
 	text-align: center;
 }
+
+.overlay-top {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 20%;
+	transition: 0.5s ease;
+	opacity: 0;
+	bottom: 80%;
+	font-size: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
+.modal {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-content {
+	width: auto;
+	background-color: #ffffff;
+	padding: 1%;
+}
+
+.modal-header, .modal-footer {
+	padding: 10px;
+}
+
+.modal-title {
+	margin: 0;
+	color: #000;
+}
+
+.modal-body {
+	padding: 10px;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	color: #000;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+  }
+  .on {
+	color: #000;
+  }
+  .off {
+	color: #ccc;
+  }
