@@ -1,3 +1,3 @@
 # ReactMovieApp
 
-This app will give movie recommendations
+This app will give movie recommendat
