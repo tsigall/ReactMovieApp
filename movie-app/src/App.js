@@ -112,7 +112,7 @@ const handleRating = (rating) => {
 
   //two stars
   if(rating === 2){
-      const newList = [...five, movie];
+      const newList = [...two, movie];
       setTwo(newList);
       saveToLocalStorage(newList);
     } else {
@@ -125,7 +125,7 @@ const handleRating = (rating) => {
 
   //one star
   if(rating === 1){
-    const newList = [...five, movie];
+    const newList = [...one, movie];
     setOne(newList);
     saveToLocalStorage(newList);
   } else {
@@ -235,7 +235,7 @@ const removeFavoriteMovie = (movie) => {
       </div>
 
       <div className = 'row d-flex align-items-center mt-10 mb-10'>
-        <MovieListHeading heading = 'One Stars' />
+        <MovieListHeading heading = 'One Star' />
       </div>
 
       <div className='d-flex justify-content-start m-10'>
